@@ -19,9 +19,19 @@ const MaterialsSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    texture: {
+      type: String,
+      default: null,
+    },
+    parameters: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );
+
+MaterialsSchema.index({ name: 1 }, { unique: true });
 
 const MaterialsModel = mongoose.model("materials", MaterialsSchema);
 
