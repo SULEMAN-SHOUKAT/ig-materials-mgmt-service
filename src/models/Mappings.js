@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MaterialsSchema = new mongoose.Schema(
+const MappingsSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,23 +11,23 @@ const MaterialsSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    resource: {
+    translationS: {
       type: String,
       default: null,
     },
-    metaMaterial: {
+    translationT: {
       type: String,
       default: null,
     },
-    texture: {
+    rotation: {
       type: String,
       default: null,
     },
-    parameters: {
+    scaleS: {
       type: String,
       default: null,
     },
-    mapping: {
+    scaleT: {
       type: String,
       default: null,
     },
@@ -35,8 +35,6 @@ const MaterialsSchema = new mongoose.Schema(
   { timestamps: true, strict: true }
 );
 
-MaterialsSchema.index({ name: 1 }, { unique: true });
+const MappingsModel = mongoose.model("mappings", MappingsSchema);
 
-const MaterialsModel = mongoose.model("materials", MaterialsSchema);
-
-module.exports = MaterialsModel;
+module.exports = MappingsModel;

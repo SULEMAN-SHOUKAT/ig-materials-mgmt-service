@@ -1,30 +1,24 @@
 const mongoose = require("mongoose");
 
-const ImageSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const ImageSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+    },
+    size: {
+      type: Number,
+    },
+    data: {
+      type: Buffer,
+      required: true,
+    },
   },
-  textureName: {
-    type: String,
-  },
-  fieldName: {
-    type: String,
-  },
-  encoding: {
-    type: String,
-  },
-  mimetype: {
-    type: String,
-  },
-  size: {
-    type: Number,
-  },
-  data: {
-    type: Buffer,
-    required: true,
-  },
-});
+  { timestamps: true, strict: true }
+);
 
 ImageSchema.path("name").validate(function (value) {
   const extension = value.substring(value.lastIndexOf(".") + 1);

@@ -14,7 +14,7 @@ const TextureSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true, strict: true }
 );
 
 TextureSchema.index({ name: 1 }, { unique: true });

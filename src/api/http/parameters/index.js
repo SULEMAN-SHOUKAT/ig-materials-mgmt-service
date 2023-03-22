@@ -54,24 +54,8 @@ module.exports = (app) => {
 
   app.delete(`/delete`, async (req, res) => {
     try {
-      const { name } = req.body;
-      const queryResponse = await parametersDomain.deleteParameters(name);
-      if (queryResponse.deletedCount == 0) {
-        throw new Error(`no parameter found with name=${name}`);
-      }
-      res.status(200).json({ message: "material parameters is deleted" });
-    } catch (error) {
-      console.error("Failed to delete material", { error: error });
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  app.delete(`/delete-many`, async (req, res) => {
-    try {
       const { names } = req.body;
-      const queryResponse = await parametersDomain.deleteMultipleParameters(
-        names
-      );
+      const queryResponse = await parametersDomain.deleteParameters(names);
       if (queryResponse.deletedCount !== names.length) {
         throw new Error(
           `some parameters in given list are not found. Total deleted parameters are ${queryResponse.deletedCount}`

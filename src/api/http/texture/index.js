@@ -54,24 +54,50 @@ module.exports = (app) => {
     }
   });
 
-  app.delete(`/delete`, async (req, res) => {
-    try {
-      const { name } = req.body;
-      const queryResponse = await textureDomain.deleteTexture(name);
-      if (queryResponse.deletedCount == 0) {
-        throw new Error(`no texture found with name=${name}`);
+  app.post(
+    `/update/images`,
+    uploadTextureImage.array("images"),
+    async (req, res) => {
+      try {
+        const { name } = req.body;
+        const images = req.files;
+        const updatedTexture = await textureDomain.addImagesToTexture(
+          name,
+          images
+        );
+        res
+          .status(200)
+          .json({ message: "texture is updated", texture: updatedTexture });
+      } catch (error) {
+        console.error("Failed to update texture", { error: error });
+        res.status(500).json({ error: error.message });
       }
-      res.status(200).json({ message: "texture is deleted" });
+    }
+  );
+
+  app.delete(`/delete/images`, async (req, res) => {
+    try {
+      const { name, imagesIds } = req.body;
+      const updatedTexture = await textureDomain.deleteImageFromTexture(
+        name,
+        imagesIds
+      );
+      res
+        .status(200)
+        .json({
+          message: "images are removed from texture",
+          texture: updatedTexture,
+        });
     } catch (error) {
-      console.error("Failed to delete texture", { error: error });
+      console.error("Failed to remove images from texture", { error: error });
       res.status(500).json({ error: error.message });
     }
   });
 
-  app.delete(`/delete-many`, async (req, res) => {
+  app.delete(`/delete`, async (req, res) => {
     try {
       const { names } = req.body;
-      const queryResponse = await textureDomain.deleteMultipleTextures(names);
+      const queryResponse = await textureDomain.deleteTextures(names);
       if (queryResponse.deletedCount !== names.length) {
         throw new Error(
           `some textures in given list are not found. Total deleted textures are ${queryResponse.deletedCount}`

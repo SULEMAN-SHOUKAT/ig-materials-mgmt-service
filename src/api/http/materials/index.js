@@ -24,17 +24,9 @@ module.exports = (app) => {
 
   app.post(`/create`, async (req, res) => {
     try {
-      const { name, Description, Resource, MetaMaterial, texture, parameters } =
-        req.body;
-      const material = await materialsDomain.createMaterial({
-        name,
-        Description,
-        Resource,
-        MetaMaterial,
-        texture,
-        parameters,
-      });
-      res.status(200).json({ material });
+      const material = req.body;
+      const newMaterial = await materialsDomain.createMaterial(material);
+      res.status(200).json({ material: newMaterial });
     } catch (error) {
       console.error("Failed to create material", { error: error });
       res.status(500).json({ message: error.message });
@@ -57,24 +49,8 @@ module.exports = (app) => {
 
   app.delete(`/delete`, async (req, res) => {
     try {
-      const { name } = req.body;
-      const queryResponse = await materialsDomain.deleteMaterial(name);
-      if (queryResponse.deletedCount == 0) {
-        throw new Error(`no material found with name=${name}`);
-      }
-      res.status(200).json("material is deleted");
-    } catch (error) {
-      console.error("Failed to delete material", { error: error });
-      res.status(500).json({ message: error.message });
-    }
-  });
-
-  app.delete(`/deleteMany`, async (req, res) => {
-    try {
       const { names } = req.body;
-      const queryResponse = await materialsDomain.deleteMultipleMaterials(
-        names
-      );
+      const queryResponse = await materialsDomain.deleteMaterials(names);
       if (queryResponse.deletedCount !== names.length) {
         throw new Error(
           `some materials in given list are not found total updated materials are ${queryResponse.deletedCount}`

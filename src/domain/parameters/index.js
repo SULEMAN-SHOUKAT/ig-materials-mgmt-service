@@ -6,12 +6,7 @@ const createParameters = async (material) => {
   return newParameters;
 };
 
-const deleteParameters = async (name) => {
-  await materialsDomain.removeParameters(name);
-  return await ParametersModel.deleteOne({ name });
-};
-
-const deleteMultipleParameters = async (names) => {
+const deleteParameters = async (names) => {
   for (const name of names) {
     await materialsDomain.removeParameters(name);
   }
@@ -31,12 +26,15 @@ const updateParameters = (name, update) =>
 const removeTexture = (texture) =>
   ParametersModel.updateMany({ texture }, { $set: { texture: null } });
 
+const removeMapping = (mapping) =>
+  ParametersModel.updateMany({ mapping }, { $set: { mapping: null } });
+
 module.exports = {
   createParameters,
   findParametersByName,
-  deleteMultipleParameters,
   deleteParameters,
   getParameters,
   updateParameters,
   removeTexture,
+  removeMapping,
 };

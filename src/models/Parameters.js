@@ -18,7 +18,7 @@ const ParametersSchema = new mongoose.Schema(
     texture: { type: String, default: null },
     mapping: { type: String, default: null },
   },
-  { timestamps: true }
+  { timestamps: true, strict: true }
 );
 
 ParametersSchema.index({ name: 1 }, { unique: true });

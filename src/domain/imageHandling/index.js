@@ -1,14 +1,11 @@
 const { ImagesModel } = require("../../models/index");
 
-const saveImages = async (images, textureName) => {
+const saveImages = async (images) => {
   let imagesIds = [];
   for (const img of images) {
     const image = {
       name: img.originalname,
-      textureName,
-      fieldName: img.fieldname,
-      encoding: img.encoding,
-      mimetype: img.mimetype,
+      type: img.mimetype,
       size: img.size,
       data: img.buffer,
     };
@@ -18,10 +15,10 @@ const saveImages = async (images, textureName) => {
   return imagesIds;
 };
 
-const deleteImagesByTextureName = (textureName) =>
-  ImagesModel.deleteMany({ textureName });
+const deleteImagesByIds = (imageIds) =>
+  ImagesModel.deleteMany({ _id: { $in: imageIds } });
 
 module.exports = {
   saveImages,
-  deleteImagesByTextureName,
+  deleteImagesByIds,
 };
