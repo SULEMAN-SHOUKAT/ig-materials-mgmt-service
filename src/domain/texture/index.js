@@ -26,7 +26,7 @@ const deleteTexture = async (name) => {
   if (!texture) {
     throw new Error(`Texture with name "${name}" not found`);
   }
-  await imageHandlingDomain.deleteImagesByIds(texture?.images);
+  await imageHandlingDomain.deleteByIds(texture?.images);
   await materialsDomain.removeTexture(name);
   await parametersDomain.removeTexture(name);
   return await TextureModel.deleteOne({ name });
@@ -57,9 +57,7 @@ const deleteImageFromTexture = async (textureName, imageIds) => {
     throw new Error(`Texture with name "${textureName}" not found`);
   }
   await texture.images.pull(...imageIds.map((id) => new ObjectId(id)));
-  await imageHandlingDomain.deleteImagesByIds(
-    imageIds.map((id) => new ObjectId(id))
-  );
+  await imageHandlingDomain.deleteByIds(imageIds.map((id) => new ObjectId(id)));
   return texture.save();
 };
 

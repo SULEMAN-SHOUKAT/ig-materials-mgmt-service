@@ -15,10 +15,10 @@ const saveImages = async (images) => {
   return imagesIds;
 };
 
-const deleteImagesByIds = (imageIds) =>
+const deleteByIds = (imageIds) =>
   ImagesModel.deleteMany({ _id: { $in: imageIds } });
 
 module.exports = {
   saveImages,
-  deleteImagesByIds,
+  deleteByIds,
 };
