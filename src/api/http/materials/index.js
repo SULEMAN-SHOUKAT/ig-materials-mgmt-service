@@ -24,14 +24,23 @@ module.exports = (app) => {
 
   app.post(`/create`, async (req, res) => {
     try {
-      const { name, Description, Resource, MetaMaterial } = req.body;
-      const material = await materialsDomain.createMaterial({
-        name,
-        Description,
-        Resource,
-        MetaMaterial,
-      });
-      res.status(200).json({ material });
+      const material = req.body;
+      const newMaterial = await materialsDomain.createMaterial(material);
+      res.status(200).json({ material: newMaterial });
+    } catch (error) {
+      console.error("Failed to create material", { error: error });
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post(`/update`, async (req, res) => {
+    try {
+      const { name, update } = req.body;
+      const queryResponse = await materialsDomain.updateMaterial(name, update);
+      if (queryResponse.modifiedCount == 0) {
+        throw new Error(`no material found with name=${name}`);
+      }
+      res.status(200).json("material is updated");
     } catch (error) {
       console.error("Failed to create material", { error: error });
       res.status(500).json({ message: error.message });
@@ -40,19 +49,13 @@ module.exports = (app) => {
 
   app.delete(`/delete`, async (req, res) => {
     try {
-      const { name } = req.body;
-      await materialsDomain.deleteMaterial(name);
-      res.status(200).json("material is deleted");
-    } catch (error) {
-      console.error("Failed to delete material", { error: error });
-      res.status(500).json({ message: error.message });
-    }
-  });
-
-  app.delete(`/deleteMany`, async (req, res) => {
-    try {
       const { names } = req.body;
-      await materialsDomain.deleteMultipleMaterials(names);
+      const queryResponse = await materialsDomain.deleteMaterials(names);
+      if (queryResponse.deletedCount !== names.length) {
+        throw new Error(
+          `some materials in given list are not found total updated materials are ${queryResponse.deletedCount}`
+        );
+      }
       res.status(200).json("materials are deleted");
     } catch (error) {
       console.error("Failed to delete materials", { error: error });
