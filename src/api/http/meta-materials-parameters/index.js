@@ -12,11 +12,24 @@ module.exports = (app) => {
     }
   });
 
-  app.get(`/:name`, async (req, res) => {
+  app.get(`/:id`, async (req, res) => {
     try {
-      const { pk } = req.params;
+      const { id } = req.params;
+      const metaMaterialParameter = await metaMaterialParametersDomain.findById(
+        id
+      );
+      res.status(200).json({ metaMaterialParameter });
+    } catch (error) {
+      console.error("Failed to get meta material parameter", { error: error });
+      res.status(404).json({ error: error.message });
+    }
+  });
+
+  app.get(`/by-meta-material-name/:name`, async (req, res) => {
+    try {
+      const { name } = req.params;
       const metaMaterialParameter =
-        await metaMaterialParametersDomain.findByKey(pk);
+        await metaMaterialParametersDomain.getByMetaMaterialName(name);
       res.status(200).json({ metaMaterialParameter });
     } catch (error) {
       console.error("Failed to get meta material parameter", { error: error });
@@ -43,13 +56,13 @@ module.exports = (app) => {
 
   app.post(`/update`, async (req, res) => {
     try {
-      const { pk, update } = req.body;
+      const { id, update } = req.body;
       const queryResponse = await metaMaterialParametersDomain.update(
-        pk,
+        id,
         update
       );
       if (queryResponse.modifiedCount == 0) {
-        throw new Error(`no meta material parameters found with pk=${pk}`);
+        throw new Error(`no meta material parameters found with _id=${id}`);
       }
       res.status(200).json({ message: "meta material parameters is updated" });
     } catch (error) {
@@ -62,9 +75,9 @@ module.exports = (app) => {
 
   app.delete(`/delete`, async (req, res) => {
     try {
-      const { pks } = req.body;
-      const queryResponse = await metaMaterialParametersDomain.remove(pks);
-      if (queryResponse.deletedCount !== pks.length) {
+      const { _ids } = req.body;
+      const queryResponse = await metaMaterialParametersDomain.remove(_ids);
+      if (queryResponse.deletedCount !== _ids.length) {
         throw new Error(
           `some meta materials parameters in given list are not found. Total deleted meta materials parameters are ${queryResponse.deletedCount}`
         );

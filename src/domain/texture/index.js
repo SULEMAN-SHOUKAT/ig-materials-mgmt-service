@@ -1,15 +1,11 @@
 const { ObjectId } = require("mongodb");
 const { TextureModel } = require("../../models/index");
-const materialsDomain = require("../materials");
 const parametersDomain = require("../parameters");
 const imageHandlingDomain = require("../imageHandling");
+const materialParametersDomain = require("../meta-materials-parameters");
 
-const createTexture = async (name, images) => {
-  const imagesIds = await imageHandlingDomain.saveImages(images);
-  const newTexture = new TextureModel({
-    name,
-    images: imagesIds,
-  });
+const createTexture = async (texture) => {
+  const newTexture = new TextureModel(texture);
   await newTexture.save();
   return newTexture;
 };
@@ -27,8 +23,8 @@ const deleteTexture = async (name) => {
     throw new Error(`Texture with name "${name}" not found`);
   }
   await imageHandlingDomain.deleteByIds(texture?.images);
-  await materialsDomain.removeTexture(name);
   await parametersDomain.removeTexture(name);
+  await materialParametersDomain.removeTexture(name);
   return await TextureModel.deleteOne({ name });
 };
 
@@ -41,13 +37,13 @@ const deleteTextures = async (names) => {
   return { deletedCount };
 };
 
-const addImagesToTexture = async (name, images) => {
+const addImageToTexture = async (name, mode, image) => {
   const texture = await findTextureByName(name);
   if (!texture) {
     throw new Error(`Texture with name "${name}" not found`);
   }
-  const imagesIds = await imageHandlingDomain.saveImages(images);
-  texture.images.push(...imagesIds);
+  const imageId = await imageHandlingDomain.saveImage(image, mode);
+  texture.images.push(imageId);
   return await texture.save();
 };
 
@@ -61,12 +57,21 @@ const deleteImageFromTexture = async (textureName, imageIds) => {
   return texture.save();
 };
 
+const getTextureImages = async (name) => {
+  const texture = await findTextureByName(name);
+  if (!texture) {
+    throw new Error(`Texture with name "${textureName}" not found`);
+  }
+  return imageHandlingDomain.getByIds(texture.images);
+};
+
 module.exports = {
   createTexture,
   getTextures,
   findTextureByName,
   updateTexture,
   deleteTextures,
-  addImagesToTexture,
+  addImageToTexture,
   deleteImageFromTexture,
+  getTextureImages,
 };

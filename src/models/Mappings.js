@@ -31,6 +31,14 @@ const MappingsSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    repeatS: {
+      type: String,
+      default: null,
+    },
+    repeatT: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true, strict: true }
 );

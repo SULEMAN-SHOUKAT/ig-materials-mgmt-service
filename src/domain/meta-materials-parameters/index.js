@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { MetaMaterialParametersModel } = require("../../models/index");
 
 const create = async (metaMaterialParameters) => {
@@ -7,18 +8,27 @@ const create = async (metaMaterialParameters) => {
   return newMetaMaterialParameters;
 };
 
-const findByKey = (pk) =>
+const findById = (id) =>
   MetaMaterialParametersModel.findOne({
-    pk: pk,
+    _id: new ObjectId(id),
+  });
+const getByMetaMaterialName = (metaMaterialName) =>
+  MetaMaterialParametersModel.find({
+    metaMaterial: metaMaterialName,
   });
 
 const getAll = () => MetaMaterialParametersModel.find({});
 
-const update = (pk, update) =>
-  MetaMaterialParametersModel.updateOne({ pk: pk }, { $set: { ...update } });
+const update = (id, update) =>
+  MetaMaterialParametersModel.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { ...update } }
+  );
 
-const remove = async (pks) =>
-  await MetaMaterialParametersModel.deleteMany({ pk: { $in: pks } });
+const remove = async (ids) =>
+  await MetaMaterialParametersModel.deleteMany({
+    _id: { $in: ids.map((id) => new ObjectId(id)) },
+  });
 
 const removeMetaMaterial = (metaMaterial) =>
   MetaMaterialParametersModel.updateMany(
@@ -26,11 +36,26 @@ const removeMetaMaterial = (metaMaterial) =>
     { $set: { metaMaterial: null } }
   );
 
+const removeTexture = (texture) =>
+  MetaMaterialParametersModel.updateMany(
+    { texture },
+    { $set: { texture: null } }
+  );
+
+const removeMapping = (mapping) =>
+  MetaMaterialParametersModel.updateMany(
+    { mapping },
+    { $set: { mapping: null } }
+  );
+
 module.exports = {
   create,
-  findByKey,
+  findById,
   getAll,
   update,
   remove,
   removeMetaMaterial,
+  getByMetaMaterialName,
+  removeTexture,
+  removeMapping,
 };

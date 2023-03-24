@@ -6,6 +6,10 @@ const ImageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    mode: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
     },
@@ -26,9 +30,15 @@ ImageSchema.path("name").validate(function (value) {
     extension === "jpg" ||
     extension === "png" ||
     extension === "JPG" ||
-    extension === "PNG"
+    extension === "PNG" ||
+    extension === "BMP" ||
+    extension === "bmp" ||
+    extension === "GIF" ||
+    extension === "gif" ||
+    extension === "JPEG" ||
+    extension === "jpeg"
   );
-}, "Only JPG and PNG images are allowed");
+}, "Only JPG, JPEG, PNG, GIF and BMP images are allowed");
 
 const ImagesModel = mongoose.model("images", ImageSchema);
 

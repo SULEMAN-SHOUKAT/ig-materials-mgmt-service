@@ -25,12 +25,21 @@ module.exports = (app) => {
       res.status(404).json({ error: error.message });
     }
   });
-
-  app.post(`/create`, uploadTextureImage.array("images"), async (req, res) => {
+  app.get(`/texture-images/:name`, async (req, res) => {
     try {
-      const { name } = req.body;
-      const images = req.files;
-      const newTexture = await textureDomain.createTexture(name, images);
+      const { name } = req.params;
+      const textureImages = await textureDomain.getTextureImages(name);
+      res.status(200).json({ textureImages });
+    } catch (error) {
+      console.error("Failed to get texture images", { error: error });
+      res.status(404).json({ error: error.message });
+    }
+  });
+
+  app.post(`/create`, async (req, res) => {
+    try {
+      const texture = req.body;
+      const newTexture = await textureDomain.createTexture(texture);
       res
         .status(200)
         .json({ message: "texture is created", texture: newTexture });
@@ -55,15 +64,16 @@ module.exports = (app) => {
   });
 
   app.post(
-    `/update/images`,
-    uploadTextureImage.array("images"),
+    `/add-image`,
+    uploadTextureImage.single("image"),
     async (req, res) => {
       try {
-        const { name } = req.body;
-        const images = req.files;
-        const updatedTexture = await textureDomain.addImagesToTexture(
+        const { name, mode } = req.body;
+        const image = req.file;
+        const updatedTexture = await textureDomain.addImageToTexture(
           name,
-          images
+          mode,
+          image
         );
         res
           .status(200)
@@ -82,12 +92,10 @@ module.exports = (app) => {
         name,
         imagesIds
       );
-      res
-        .status(200)
-        .json({
-          message: "images are removed from texture",
-          texture: updatedTexture,
-        });
+      res.status(200).json({
+        message: "images are removed from texture",
+        texture: updatedTexture,
+      });
     } catch (error) {
       console.error("Failed to remove images from texture", { error: error });
       res.status(500).json({ error: error.message });

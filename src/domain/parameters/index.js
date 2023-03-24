@@ -1,17 +1,12 @@
 const { ParametersModel } = require("../../models/index");
-const materialsDomain = require("../materials");
 
 const createParameters = async (material) => {
   const newParameters = await ParametersModel.create(material);
   return newParameters;
 };
 
-const deleteParameters = async (names) => {
-  for (const name of names) {
-    await materialsDomain.removeParameters(name);
-  }
-  return await ParametersModel.deleteMany({ name: { $in: names } });
-};
+const deleteParameters = async (names) =>
+  ParametersModel.deleteMany({ name: { $in: names } });
 
 const findParametersByName = (name) =>
   ParametersModel.findOne({

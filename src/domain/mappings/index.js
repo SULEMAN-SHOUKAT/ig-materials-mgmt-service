@@ -1,6 +1,6 @@
 const { MappingsModel } = require("../../models/index");
-const materialsDomain = require("../materials");
 const parametersDomain = require("../parameters");
+const materialParametersDomain = require("../meta-materials-parameters");
 
 const createMapping = async (mapping) => {
   const newMapping = await MappingsModel.create(mapping);
@@ -9,8 +9,8 @@ const createMapping = async (mapping) => {
 
 const deleteMappings = async (names) => {
   for (const name of names) {
-    await materialsDomain.removeMapping(name);
     await parametersDomain.removeMapping(name);
+    await materialParametersDomain.removeMapping(name);
   }
   return await MappingsModel.deleteMany({ name: { $in: names } });
 };

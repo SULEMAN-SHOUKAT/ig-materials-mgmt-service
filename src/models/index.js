@@ -8,6 +8,7 @@ const ImagesModel = require("./Images");
 const MappingsModel = require("./Mappings");
 const MetaMaterialsModel = require("./MetaMaterials");
 const MetaMaterialParametersModel = require("./MetaMaterialParameters");
+const CategoriesModel = require("./Categories");
 
 const connectDb = async () => {
   console.log("connecting to MongoDB");
@@ -26,4 +27,5 @@ module.exports = {
   MappingsModel,
   MetaMaterialsModel,
   MetaMaterialParametersModel,
+  CategoriesModel,
 };

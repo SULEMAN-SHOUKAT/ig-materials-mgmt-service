@@ -7,6 +7,9 @@ const TextureSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    description: {
+      type: String,
+    },
     images: [
       {
         type: mongoose.Schema.Types.ObjectId,
