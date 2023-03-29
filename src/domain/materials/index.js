@@ -13,7 +13,7 @@ const findMaterialByName = (name) =>
     name: name,
   });
 
-const getMaterials = () => MaterialsModel.find({});
+const getMaterials = () => MaterialsModel.find({}).sort({ createdAt: -1 });
 
 const updateMaterial = (name, update) =>
   MaterialsModel.updateOne({ name }, { $set: { ...update } });
