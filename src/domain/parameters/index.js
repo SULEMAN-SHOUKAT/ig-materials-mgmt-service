@@ -13,7 +13,7 @@ const findParametersByName = (name) =>
     name: name,
   });
 
-const getParameters = () => ParametersModel.find({});
+const getParameters = () => ParametersModel.find({}).sort({ createdAt: -1 });
 
 const updateParameters = (name, update) =>
   ParametersModel.updateOne({ name }, { $set: { ...update } });
