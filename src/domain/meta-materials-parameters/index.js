@@ -17,7 +17,8 @@ const getByMetaMaterialName = (metaMaterialName) =>
     metaMaterial: metaMaterialName,
   });
 
-const getAll = () => MetaMaterialParametersModel.find({});
+const getAll = () =>
+  MetaMaterialParametersModel.find({}).sort({ createdAt: -1 });
 
 const update = (id, update) =>
   MetaMaterialParametersModel.updateOne(

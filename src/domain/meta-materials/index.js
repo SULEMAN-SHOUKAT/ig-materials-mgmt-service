@@ -12,7 +12,8 @@ const findMetaMaterialByName = (name) =>
     name: name,
   });
 
-const getMetaMaterials = () => MetaMaterialsModel.find({});
+const getMetaMaterials = () =>
+  MetaMaterialsModel.find({}).sort({ createdAt: -1 });
 
 const updateMetaMaterial = (name, update) =>
   MetaMaterialsModel.updateOne({ name }, { $set: { ...update } });

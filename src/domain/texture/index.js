@@ -10,7 +10,7 @@ const createTexture = async (texture) => {
   return newTexture;
 };
 
-const getTextures = () => TextureModel.find({});
+const getTextures = () => TextureModel.find({}).sort({ createdAt: -1 });
 
 const findTextureByName = async (name) => await TextureModel.findOne({ name });
 

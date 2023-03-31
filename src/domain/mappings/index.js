@@ -20,7 +20,7 @@ const findMappingByName = (name) =>
     name: name,
   });
 
-const getMappings = () => MappingsModel.find({});
+const getMappings = () => MappingsModel.find({}).sort({ createdAt: -1 });
 
 const updateMapping = (name, update) =>
   MappingsModel.updateOne({ name }, { $set: { ...update } });
