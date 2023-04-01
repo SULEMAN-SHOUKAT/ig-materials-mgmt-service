@@ -32,10 +32,12 @@ const remove = async (ids) =>
   });
 
 const removeMetaMaterial = (metaMaterial) =>
-  MetaMaterialParametersModel.updateMany(
-    { metaMaterial },
-    { $set: { metaMaterial: null } }
-  );
+  MetaMaterialParametersModel.deleteOne({ metaMaterial });
+
+const removeByMetaMaterialName = (metaMaterialsNames) =>
+  MetaMaterialParametersModel.deleteMany({
+    metaMaterial: { $in: metaMaterialsNames },
+  });
 
 const removeTexture = (texture) =>
   MetaMaterialParametersModel.updateMany(
@@ -59,4 +61,5 @@ module.exports = {
   getByMetaMaterialName,
   removeTexture,
   removeMapping,
+  removeByMetaMaterialName,
 };

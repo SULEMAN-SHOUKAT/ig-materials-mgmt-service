@@ -15,6 +15,12 @@ const MaterialsSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    images: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+    ],
   },
   { timestamps: true, strict: true }
 );

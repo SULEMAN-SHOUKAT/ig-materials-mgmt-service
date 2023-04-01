@@ -1,4 +1,8 @@
+const multer = require("multer");
+
 const materialsDomain = require("../../../domain/materials");
+
+const uploadMaterialImage = multer();
 
 module.exports = (app) => {
   app.get(`/`, async (req, res) => {
@@ -19,6 +23,17 @@ module.exports = (app) => {
     } catch (error) {
       console.error("Failed to get material", { error: error });
       res.status(404).json({ message: error.message });
+    }
+  });
+
+  app.get(`/material-images/:name`, async (req, res) => {
+    try {
+      const { name } = req.params;
+      const materialImages = await materialsDomain.getMaterialImages(name);
+      res.status(200).json({ materialImages });
+    } catch (error) {
+      console.error("Failed to get material images", { error: error });
+      res.status(404).json({ error: error.message });
     }
   });
 
@@ -60,6 +75,45 @@ module.exports = (app) => {
     } catch (error) {
       console.error("Failed to delete materials", { error: error });
       res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post(
+    `/add-image`,
+    uploadMaterialImage.single("image"),
+    async (req, res) => {
+      try {
+        const { name, mode } = req.body;
+        const image = req.file;
+        const updatedMaterial = await materialsDomain.addImageToMaterial(
+          name,
+          mode,
+          image
+        );
+        res
+          .status(200)
+          .json({ message: "material is updated", material: updatedMaterial });
+      } catch (error) {
+        console.error("Failed to update material", { error: error });
+        res.status(500).json({ error: error.message });
+      }
+    }
+  );
+
+  app.delete(`/delete/images`, async (req, res) => {
+    try {
+      const { name, imagesIds } = req.body;
+      const updatedMaterial = await materialsDomain.deleteImageFromMaterial(
+        name,
+        imagesIds
+      );
+      res.status(200).json({
+        message: "images are removed from material",
+        material: updatedMaterial,
+      });
+    } catch (error) {
+      console.error("Failed to remove images from material", { error: error });
+      res.status(500).json({ error: error.message });
     }
   });
 

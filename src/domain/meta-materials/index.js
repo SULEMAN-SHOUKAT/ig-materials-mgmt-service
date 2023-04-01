@@ -19,9 +19,9 @@ const updateMetaMaterial = (name, update) =>
   MetaMaterialsModel.updateOne({ name }, { $set: { ...update } });
 
 const removeMetaMaterials = async (names) => {
+  await metaMaterialParametersDomain.removeByMetaMaterialName(names);
   for (const name of names) {
     await materialsDomain.removeMetaMaterial(name);
-    await metaMaterialParametersDomain.removeMetaMaterial(name);
   }
   return await MetaMaterialsModel.deleteMany({ name: { $in: names } });
 };
