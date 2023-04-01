@@ -15,7 +15,8 @@ const saveImage = async (img, mode) => {
 const deleteByIds = (imageIds) =>
   ImagesModel.deleteMany({ _id: { $in: imageIds } });
 
-const getByIds = (imageIds) => ImagesModel.find({ _id: { $in: imageIds } });
+const getByIds = (imageIds) =>
+  ImagesModel.find({ _id: { $in: imageIds } }).sort({ createdAt: -1 });
 
 module.exports = {
   saveImage,
