@@ -8,14 +8,14 @@ Follow these steps to install Node.js on your Mac:
 2. Click on the "Download" button to download the latest version of Node.js for Mac.
 3. Once the download is complete, open the downloaded file.
 4. Follow the instructions in the Node.js installer to complete the installation process.
-#Installing Node.js on Windows
+# Installing Node.js on Windows
 Follow these steps to install Node.js on your Windows machine:
 
 1. Open a web browser and navigate to the Node.js official website.
 2. Click on the "Download" button to download the latest version of Node.js for Windows.
 3. Once the download is complete, open the downloaded file.
 4. Follow the instructions in the Node.js installer to complete the installation process.
-#Doing npm install and starting a Node.js app
+## Doing npm install and starting a Node.js app
 Once Node.js is installed on your machine, you can use npm (Node Package Manager) to install packages for your Node.js application.
 
 Follow these steps to do npm install and start a Node.js app:
