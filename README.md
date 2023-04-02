@@ -1,47 +1,27 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+Installing Node.js on Mac and Windows
+Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that allows developers to run JavaScript on the server-side. In this README, we will explain the steps to install Node.js on Mac and Windows.
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+Installing Node.js on Mac
+Follow these steps to install Node.js on your Mac:
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+Open a web browser and navigate to the Node.js official website.
+Click on the "Download" button to download the latest version of Node.js for Mac.
+Once the download is complete, open the downloaded file.
+Follow the instructions in the Node.js installer to complete the installation process.
+Installing Node.js on Windows
+Follow these steps to install Node.js on your Windows machine:
 
----
+Open a web browser and navigate to the Node.js official website.
+Click on the "Download" button to download the latest version of Node.js for Windows.
+Once the download is complete, open the downloaded file.
+Follow the instructions in the Node.js installer to complete the installation process.
+Doing npm install and starting a Node.js app
+Once Node.js is installed on your machine, you can use npm (Node Package Manager) to install packages for your Node.js application.
 
-## Edit a file
+Follow these steps to do npm install and start a Node.js app:
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
-
----
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
-
-Local mongo db "url": "mongodb://localhost:27017/ig-materials",
+Open a terminal or command prompt window.
+Navigate to your Node.js application directory.
+Run the command npm install to install the dependencies listed in your package.json file.
+Once the installation is complete, run the command npm run serve to start your Node.js application.
+That's it! Your Node.js application should now be up and running. You can access it by navigating to http://localhost:3000 (or a different port if specified in your code)
