@@ -8,13 +8,13 @@ const { logHttpRequest } = require("./utils");
 
 const app = express();
 app.use(cors());
-
+const port = process.env.PORT || config.port;
 app.use(express.json());
 app.use(config.baseRoute, logHttpRequest, router);
 
-const startApp = app.listen(config.port, () => {
+const startApp = app.listen(port, () => {
   console.log("server is listening", {
-    port: config.port,
+    port: port,
     baseRoute: config.baseRoute,
   });
 });
