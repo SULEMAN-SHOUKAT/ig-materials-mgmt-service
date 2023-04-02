@@ -25,3 +25,6 @@ Follow these steps to do npm install and start a Node.js app:
 3. Run the command npm install to install the dependencies listed in your package.json file.
 4. Once the installation is complete, run the command npm run serve to start your Node.js application.
 That's it! Your Node.js application should now be up and running. You can access it by navigating to http://localhost:3002 (or a different port if specified in your code)
+
+# API Documentation
+https://documenter.getpostman.com/view/20848322/2s93RL2H5u
