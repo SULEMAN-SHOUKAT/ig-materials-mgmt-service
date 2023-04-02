@@ -2,6 +2,7 @@
   "baseRoute": "/intelligent-graphics/api/materials-mgmt-service",
   "port": 3002,
   "db": {
-    "url": "mongodb://localhost:27017/ig-materials"
+    "url": "mongodb+srv://ig-material-mgmt-service:udOocnCXSB48xFZk@ig-material-mgmt.thudred.mongodb.net/?retryWrites=true&w=majority"
+   
   }
 }
