@@ -17,7 +17,7 @@ const deleteMaterial = async (name) => {
     throw new Error(`Material with name "${name}" not found`);
   }
   await imageHandlingDomain.deleteByIds(material?.images);
-  return await MaterialModel.deleteOne({ name });
+  return await MaterialsModel.deleteOne({ name });
 };
 
 const deleteMaterials = async (names) => {
