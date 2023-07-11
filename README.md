@@ -54,7 +54,7 @@ After reading the Hints/FAQ part of the read me i came to know that the data is 
 so the first part of the solution for me is preparing the data in a way that it is easier to work with
 After preparing the data the second part of the solution should be the aggregation of the data according to requirements and then final part should be extracting the final array from aggregated data. so in short my solution is based on three steps or in other words the problem is divided into three parts.
 #### Prepare dataSet 
-prepare dataset into a easy to work with data structure (no duplications and sorted data) and i decided to go with the a data structure where record is grouped by the CaseID and then this record consist of an array of unique activities sorted by time of occurrence
+prepare dataset into a easy to work with data structure (no duplications and sorted data) and i decided to go with the a data structure where records are grouped by the CaseID and then this grouped record consist of an array of unique activities related to that particular case and sorted by time of occurrence.
 following is the example of data structure 
 ```
 const logsGroupedByCaseId = {
@@ -70,8 +70,10 @@ const logsGroupedByCaseId = {
       ]
 }
 ```
-* perform aggregation on the given data
-* extract the final output from the aggregated data
+this refinement of the dataset will make the next steps easy
+#### perform aggregation on the prepared data set
+after 1st stpe as i already have the data set grouped by CaseID and in the timely mannar sequance of activites so next step is to  perform aggregation on this more clean form of data.
+#### extract the final output from the aggregated data (last step)
 
 and at the end for performance measure utilize and refactor the code so that i can perform all these operation in 50 milliseconds.
 
