@@ -1,0 +1,5 @@
+{
+  "db": {
+    "url": "mongodb://mongo-db:27017,mongo-db:27018,mongo-db:27019/ig-material-mgmt?replicaSet=rs0&readPreference=primary&ssl=true"
+  }
+}
